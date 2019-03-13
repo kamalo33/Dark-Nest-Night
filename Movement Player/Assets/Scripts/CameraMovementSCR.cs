@@ -5,11 +5,12 @@ using UnityEngine;
 public class CameraMovementSCR : MonoBehaviour
 {
     public Transform cam_transform;//Put here camera by dragging it
-    public float smoothCam = 0.1f;
     private GameControllerSC gameController;
     [Range(-0.5f, 0.5f)]public float distanceX_CamToPlayer = 0, distanceY_CamToPlayer = 0;
+    [Range(0, 0.5f)] public float camSpeed;
     [HideInInspector] public Camera cam_Camera;
-    private float camHeight, camWidth;//altura, anchura, in that order
+    private float camHeight, camWidth, dir;//altura, anchura and direction (-1,0,1) in that order
+    
     void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
@@ -25,18 +26,27 @@ public class CameraMovementSCR : MonoBehaviour
     {
         
         float x = Input.GetAxis("Horizontal"); //Input movement
-        if (x > 0 && !gameController.getfreezCam())
+        if (x > 0)
         {
-            cam_transform.position = new Vector3(this.transform.position.x + (camWidth * distanceX_CamToPlayer), this.transform.position.y + (camHeight * distanceY_CamToPlayer), -10);
-            //Vector3 newPosition = cam_transform.position;
-            //cam_transform.position = Vector3.Lerp(cam_transform_now, cam_transform_end, smoothCam);
+             dir = 0.1F;
+         
         }
-        else if(x < 0 && !gameController.getfreezCam())
+        if(x < 0)
         {
-            cam_transform.position = new Vector3(this.transform.position.x - (camWidth * distanceX_CamToPlayer), this.transform.position.y + (camHeight * distanceY_CamToPlayer), -10);
-            
-            //transform.position = Vector3.Lerp(cam_transform_now, cam_transform_end, 2f);
+            dir = -0.1F;
+                  
         }
-       
+        if (gameController.getfreezCam())
+        {
+            dir = 0;
+        }
+        if (cam_transform.position.x > transform.position.x - (camWidth * distanceX_CamToPlayer) && dir < 0) //Right
+        {
+            cam_transform.position += new Vector3(camSpeed * dir, 0, 0);
+        }
+        if (cam_transform.position.x < transform.position.x + (camWidth * distanceX_CamToPlayer) && dir > 0) //Left
+        {
+            cam_transform.position += new Vector3(camSpeed * dir, 0, 0);
+        }
     }
 }

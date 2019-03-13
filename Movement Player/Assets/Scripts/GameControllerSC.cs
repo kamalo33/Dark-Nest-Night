@@ -13,9 +13,6 @@ public class GameControllerSC : MonoBehaviour
     //Interaction button
     private bool interaction = false;
 
-    //Hide State
-    private bool hideState = false;
-
     //Freeze camera
     private bool freezCam = false;
 

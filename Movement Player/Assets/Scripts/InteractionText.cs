@@ -7,6 +7,7 @@ public class InteractionText : MonoBehaviour {
 
     //private bool interaction;
     private GameControllerSC gameController;
+    public GameObject instantiateButton;
 
     private void Start()
     {
@@ -27,9 +28,11 @@ public class InteractionText : MonoBehaviour {
     {
 
         if (collision.gameObject.tag == "Player")
-        {
-            gameController.setInteraction(true);
+        {  
             //SET BUTTON ANIMATION HERE
+            GameObject button = (GameObject)Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
+            gameController.setInteraction(true);
+          
         }
     }
 
