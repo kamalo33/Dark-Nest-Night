@@ -8,6 +8,8 @@ public class InteractionText : MonoBehaviour {
     //private bool interaction;
     private GameControllerSC gameController;
     public GameObject instantiateButton;
+    public GameObject squareText; //Text
+
 
     private void Start()
     {
@@ -17,8 +19,8 @@ public class InteractionText : MonoBehaviour {
     {
         if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E))
         {
-            //TEXT            
-            print("buenas");
+            //set visible square text
+            squareText.SetActive(true);
 
         }
        
@@ -30,7 +32,7 @@ public class InteractionText : MonoBehaviour {
         if (collision.gameObject.tag == "Player")
         {  
             //SET BUTTON ANIMATION HERE
-            GameObject button = (GameObject)Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
+            Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
             gameController.setInteraction(true);
           
         }
@@ -38,6 +40,9 @@ public class InteractionText : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
+        print(collision);
+        Destroy(GameObject.FindGameObjectWithTag("button"));
+        
         gameController.setInteraction(false);
         //Destroy button
     }
