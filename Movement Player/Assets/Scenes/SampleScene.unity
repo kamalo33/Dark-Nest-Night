@@ -254,7 +254,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4629524495588622, guid: 0a1e42c8e3e504445a32757d0a4273ff, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -9.786
+      value: -7.909
       objectReference: {fileID: 0}
     - target: {fileID: 4629524495588622, guid: 0a1e42c8e3e504445a32757d0a4273ff, type: 2}
       propertyPath: m_LocalPosition.y
@@ -548,7 +548,8 @@ MonoBehaviour:
   fireDamage: 33.4
   bramblesDamage: 20
   deathPanel: {fileID: 1336920224}
-  deathtransition: 4
+  deathTransition: 2
+  timeToAppear: 3
 --- !u!95 &799242629
 Animator:
   serializedVersion: 3
@@ -683,8 +684,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1336920224}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3, y: -2, z: 0}
-  m_LocalScale: {x: 315, y: 398, z: 1}
+  m_LocalPosition: {x: -1, y: -2, z: 0}
+  m_LocalScale: {x: 305, y: 335, z: 1}
   m_Children: []
   m_Father: {fileID: 1612273921}
   m_RootOrder: 0
