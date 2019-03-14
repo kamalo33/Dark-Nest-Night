@@ -14,6 +14,8 @@ TagManager:
   - brambles
   - bonesplinters
   - box
+  - button
+  - canvas
   layers:
   - Default
   - TransparentFX

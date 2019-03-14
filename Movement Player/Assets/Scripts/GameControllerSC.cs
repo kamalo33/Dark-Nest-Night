@@ -12,12 +12,11 @@ public class GameControllerSC : MonoBehaviour
 
     //Interaction button
     private bool interaction = false;
-
-    //Hide State
-    private bool hideState = false;
+    private bool hideText = false;
 
     //Freeze camera
     private bool freezCam = false;
+
 
     public static GameControllerSC instance = null;//Variable to save the instance
 
@@ -66,7 +65,7 @@ public class GameControllerSC : MonoBehaviour
 
    
     //Freeze camera and Hide State
-    public void setFreezeCamera (bool freezCamIs)
+    public void setfreezeCamera (bool freezCamIs)
     {
         freezCam = freezCamIs;
 
@@ -75,6 +74,16 @@ public class GameControllerSC : MonoBehaviour
     {
         return freezCam;
     }
+    //Hide text condition
+    public void sethideText(bool hideTextIs)
+    {
+        hideText = hideTextIs;
+    }
+    public bool gethideText()
+    {
+        return hideText;
+    }
+
 
 
 

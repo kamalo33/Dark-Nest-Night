@@ -59,25 +59,35 @@ public class PlayerMoveController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+    //DeathPanel
+    public GameObject deathPanel;
+    private Color deathPanelAppears;
+    private float timeToDefreeze;
+    private bool freezeGame = false;
+    [Range(0, 5f)] public float deathTransition , timeToAppear;
 
     private void Start() //get components
     {
 
+
+        //deathPanel = gameObject.GetComponent<Renderer>().material.color;//Color player
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         //spr = gameObject.GetComponent<SpriteRenderer>();
         anim = gameObject.GetComponent<Animator>();
-        
+        deathPanelAppears = gameObject.GetComponent<Renderer>().material.color;
         //circle = GameObject.FindGameObjectsWithTag("box").GetComponent<Rigidbody2D>();
+        deathPanel.SetActive(false);
+        deathPanelAppears.a = 0;
     }
 
     private void Update()
     {
-        
+
         float x = Input.GetAxis("Horizontal"); //Input movement
 
 
-        if (x > 0 && !blockDirectionIce && !gameController.getfreezCam()) 
+        if (x > 0 && !blockDirectionIce && !gameController.getfreezCam())
         {
             transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
             directionIce = false;
@@ -91,10 +101,10 @@ public class PlayerMoveController : MonoBehaviour
 
         }
         //Hide condition
-        else if (speed==0)
+        else if (speed == 0)
         {
             stopped = true;
-            
+
         }
 
         //Hide activation
@@ -103,20 +113,20 @@ public class PlayerMoveController : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && stopped && !ice)
             {
                 //Change state 
-               
-                gameController.setFreezeCamera(true);
+
+                gameController.setfreezeCamera(true);
             }
             else
             {
-                gameController.setFreezeCamera(false);
+                gameController.setfreezeCamera(false);
             }
         }
         catch (Exception e)
         {
-      
+
             print(e);
         }
-    
+
 
 
 
@@ -134,12 +144,12 @@ public class PlayerMoveController : MonoBehaviour
                 running = (x * sprintSpeed + speed) * (moveReduction);
             }
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             print("SpeedPlayer");
             print(e);
         }
-       
+
         try //Try to invoke damage functions (InvokeRepeatings)
         {
             if (insideFire)
@@ -166,8 +176,56 @@ public class PlayerMoveController : MonoBehaviour
         }
         finally
         {
-            if(insideFire || insideBrambles) 
-            invokeIsCalled = true;
+            if (insideFire || insideBrambles)
+                invokeIsCalled = true;
+        }
+
+
+        try //death condition
+        {
+            if (gameController.getLife() <= 0)
+            {
+
+                //if life is 0, die and freeze all and deathPanel appears in x time
+                deathPanel.SetActive(true);
+                timeToDefreeze += Time.unscaledDeltaTime;
+                //print(timeToDefreeze);
+                if (timeToDefreeze > timeToAppear && deathPanelAppears.a >= 0)
+                {
+
+                    Time.timeScale = 1;
+                    deathPanelAppears.a -= Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
+                    deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
+
+                }
+                else if (timeToDefreeze <= timeToAppear && deathPanelAppears.a <= 1)
+                {
+                    //freezeGame = true;
+                    deathPanelAppears.a += Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
+                    deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
+                   
+                    Time.timeScale = 0;
+                    
+
+
+                }
+
+            }
+            //if (freezeGame)
+           // {
+              
+                
+               // freezeGame = false;
+           // }
+
+        }
+        catch (Exception e)
+        {
+            print(e);
+        }
+        finally
+        {
+           
         }
 
         try //haunted condition
@@ -184,8 +242,8 @@ public class PlayerMoveController : MonoBehaviour
                 print(moveReduction);
                 huntedState = false;
             }
-            
-            
+
+
         }
         catch (Exception e)
         {
@@ -211,13 +269,13 @@ public class PlayerMoveController : MonoBehaviour
             //gameController.setbeingHunted(true); Haunted test (IN)
 
         }
-        else if(!ice && !gameController.getfreezCam()) //Movement
+        else if (!ice && !gameController.getfreezCam()) //Movement
         {
 
             //rb.transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));
 
             rb.velocity = new Vector3(speed, rb.velocity.y, 0);
-            
+
         }
 
         grounded = Physics2D.OverlapCircle(groundPosition.position, groundDetectionRadius, groundLayer.value); //rayCast to ground
@@ -229,7 +287,7 @@ public class PlayerMoveController : MonoBehaviour
             grounded = false;
             //gameController.setbeingHunted(false); Haunted test (ON) 
         }
-        
+
     }
 
 
@@ -264,7 +322,7 @@ public class PlayerMoveController : MonoBehaviour
                 break;
 
             case "ice":
-                gameController.setFreezeCamera(true);
+                gameController.setfreezeCamera(true);
                 ice = true;
                 if (!directionIce)
                 {
@@ -275,7 +333,7 @@ public class PlayerMoveController : MonoBehaviour
                     rb.AddForce(new Vector2(-iceForce, 0), ForceMode2D.Impulse);
                 }
                 blockDirectionIce = true;
-           
+
                 break;
 
             case "fire":
@@ -291,7 +349,7 @@ public class PlayerMoveController : MonoBehaviour
                 print(gameController.getLife());
                 break;
         }
-      
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -302,29 +360,29 @@ public class PlayerMoveController : MonoBehaviour
                 ice = false;
                 if (!directionIce)
                 {
-                    rb.AddForce(new Vector2(-iceForce, 0), ForceMode2D.Impulse); 
+                    rb.AddForce(new Vector2(-iceForce, 0), ForceMode2D.Impulse);
                 }
                 else if (directionIce)
                 {
                     rb.AddForce(new Vector2(iceForce, 0), ForceMode2D.Impulse);
                 }
                 blockDirectionIce = false;
-                gameController.setFreezeCamera(false);
+                gameController.setfreezeCamera(false);
                 break;
-          
+
         }
 
 
         try//Try for damage fields
         {
-            insideFire = false; 
+            insideFire = false;
             insideBrambles = false;
             invokeIsCalled = false; //Stop invoke in Update function
             CancelInvoke("fireDamageTiming"); //Cancel damage function of fire
             CancelInvoke("bramblesDamageTiming");
             print(insideFire);
             print(insideBrambles);
-            
+
         }
         catch (Exception e) //Print error
         {
@@ -335,11 +393,11 @@ public class PlayerMoveController : MonoBehaviour
         {
             moveReduction = 1f; //Return normal speed to player
         }
-       
+
     }
 
-    private void fireDamageTiming ()//Damage function for fire
-    { 
+    private void fireDamageTiming()//Damage function for fire
+    {
 
         gameController.setLife(fireDamage);
         print(gameController.getLife());
