@@ -8,7 +8,8 @@ public class InteractionText : MonoBehaviour {
     //private bool interaction;
     private GameControllerSC gameController;
     public GameObject instantiateButton;
-    public GameObject squareText; //Text
+    public GameObject squareText; //Text panel
+    public string historyText;
 
 
     private void Start()
@@ -17,11 +18,19 @@ public class InteractionText : MonoBehaviour {
     }
     private void Update()
     {
-        if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E))
+        if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E) && !gameController.gethideText())
         {
             //set visible square text
             squareText.SetActive(true);
-
+            gameController.sethideText(true);
+        
+        
+        }
+        else if (gameController.gethideText() && Input.GetKeyDown(KeyCode.E))
+        {
+            //set invisible squaretext
+            squareText.SetActive(false);
+            gameController.sethideText(false);
         }
        
     }

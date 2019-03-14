@@ -59,16 +59,24 @@ public class PlayerMoveController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
+    //DeathPanel
+    public GameObject deathPanel;
+    private Color deathPanelAppears;
+    [Range(0, 5f)] public float deathtransition;
 
     private void Start() //get components
     {
-
+        
+        
+        //deathPanel = gameObject.GetComponent<Renderer>().material.color;//Color player
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
         rb = gameObject.GetComponent<Rigidbody2D>();
         //spr = gameObject.GetComponent<SpriteRenderer>();
         anim = gameObject.GetComponent<Animator>();
-        
+        deathPanelAppears = gameObject.GetComponent<Renderer>().material.color;
         //circle = GameObject.FindGameObjectsWithTag("box").GetComponent<Rigidbody2D>();
+        deathPanel.SetActive(false);
+        deathPanelAppears.a = 0;
     }
 
     private void Update()
@@ -104,11 +112,11 @@ public class PlayerMoveController : MonoBehaviour
             {
                 //Change state 
                
-                gameController.setFreezeCamera(true);
+                gameController.setfreezeCamera(true);
             }
             else
             {
-                gameController.setFreezeCamera(false);
+                gameController.setfreezeCamera(false);
             }
         }
         catch (Exception e)
@@ -168,6 +176,27 @@ public class PlayerMoveController : MonoBehaviour
         {
             if(insideFire || insideBrambles) 
             invokeIsCalled = true;
+        }
+
+        
+        try //death condition
+        {
+            if (gameController.getLife() <= 0)
+            {
+                //if life is 0, die and freeze all and deathPanel appears in x time
+                deathPanel.SetActive(true);
+                deathPanelAppears.a += Time.unscaledDeltaTime * deathtransition; //+ deathtransition = more speed in appears
+                deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
+                Time.timeScale = 0;
+            }
+        }
+        catch(Exception e)
+        {
+            print(e);
+        }
+        finally
+        {
+            
         }
 
         try //haunted condition
@@ -264,7 +293,7 @@ public class PlayerMoveController : MonoBehaviour
                 break;
 
             case "ice":
-                gameController.setFreezeCamera(true);
+                gameController.setfreezeCamera(true);
                 ice = true;
                 if (!directionIce)
                 {
@@ -309,7 +338,7 @@ public class PlayerMoveController : MonoBehaviour
                     rb.AddForce(new Vector2(iceForce, 0), ForceMode2D.Impulse);
                 }
                 blockDirectionIce = false;
-                gameController.setFreezeCamera(false);
+                gameController.setfreezeCamera(false);
                 break;
           
         }
