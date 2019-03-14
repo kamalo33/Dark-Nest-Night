@@ -63,7 +63,7 @@ public class PlayerMoveController : MonoBehaviour
     public GameObject deathPanel;
     private Color deathPanelAppears;
     private float timeToDefreeze;
-    private bool freezeGame = false;
+    //private bool freezeGame = false;
     [Range(0, 5f)] public float deathTransition , timeToAppear;
 
     private void Start() //get components
@@ -211,13 +211,7 @@ public class PlayerMoveController : MonoBehaviour
                 }
 
             }
-            //if (freezeGame)
-           // {
-              
-                
-               // freezeGame = false;
-           // }
-
+           
         }
         catch (Exception e)
         {
