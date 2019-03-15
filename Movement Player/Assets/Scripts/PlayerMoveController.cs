@@ -197,6 +197,14 @@ public class PlayerMoveController : MonoBehaviour
                     deathPanelAppears.a -= Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
                     deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
 
+                    if (gameController.getcheckPointController()) {
+                        transform.position = gameController.getcheckPoint();
+                        gameController.setcheckPointController(false);
+                    }
+                    else
+                    {
+
+                    }
                 }
                 else if (timeToDefreeze <= timeToAppear && deathPanelAppears.a <= 1)
                 {
@@ -205,9 +213,7 @@ public class PlayerMoveController : MonoBehaviour
                     deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
                    
                     Time.timeScale = 0;
-                    
-
-
+                   
                 }
 
             }

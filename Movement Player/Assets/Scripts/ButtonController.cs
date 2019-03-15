@@ -15,6 +15,7 @@ public class ButtonController : MonoBehaviour {
 	
 
 	void Update () {
-        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + highButton, transform.position.z); ; 
+        transform.position = new Vector3(player.transform.position.x, player.transform.position.y + highButton, transform.position.z); //Take position of player when instantiate
+
 	}
 }
