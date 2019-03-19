@@ -65,7 +65,9 @@ public class PlayerMoveController : MonoBehaviour
     private float timeToDefreeze;
     //private bool freezeGame = false;
     [Range(0, 5f)] public float deathTransition , timeToAppear;
+    private bool revive = false;
 
+    
     private void Start() //get components
     {
 
@@ -86,7 +88,7 @@ public class PlayerMoveController : MonoBehaviour
 
         float x = Input.GetAxis("Horizontal"); //Input movement
 
-
+        //Swap sprite and can't move when enter on ice or hide ability
         if (x > 0 && !blockDirectionIce && !gameController.getfreezCam())
         {
             transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
@@ -127,9 +129,7 @@ public class PlayerMoveController : MonoBehaviour
             print(e);
         }
 
-
-
-
+ 
         jump = (Input.GetAxis("Jump") > 0); //devuelve true cuando se está saltando, sino, no se devuelve nada
         if (!jump)
         {
@@ -183,23 +183,29 @@ public class PlayerMoveController : MonoBehaviour
 
         try //death condition
         {
-            if (gameController.getLife() <= 0)
+            if (gameController.getLife() <= 0 || revive)
             {
-
                 //if life is 0, die and freeze all and deathPanel appears in x time
                 deathPanel.SetActive(true);
                 timeToDefreeze += Time.unscaledDeltaTime;
                 //print(timeToDefreeze);
                 if (timeToDefreeze > timeToAppear && deathPanelAppears.a >= 0)
                 {
-
+                    print("GOLI");
+                    
                     Time.timeScale = 1;
                     deathPanelAppears.a -= Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
                     deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
 
                     if (gameController.getcheckPointController()) {
+                        
+                        print("gola");
                         transform.position = gameController.getcheckPoint();
+                        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); //-10 in Z to see player and game
+                        gameController.setLife(-100); //change sign in the same function to put it in positive value
                         gameController.setcheckPointController(false);
+                        revive = true;
+                        
                     }
                     else
                     {
@@ -208,14 +214,14 @@ public class PlayerMoveController : MonoBehaviour
                 }
                 else if (timeToDefreeze <= timeToAppear && deathPanelAppears.a <= 1)
                 {
-                    //freezeGame = true;
+                    
                     deathPanelAppears.a += Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
                     deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
                    
                     Time.timeScale = 0;
                    
                 }
-
+                
             }
            
         }

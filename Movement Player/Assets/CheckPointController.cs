@@ -10,11 +10,12 @@ public class CheckPointController : MonoBehaviour {
     public GameObject squareText; //Text panel
     public string historyText; //Text inside square
     private Transform player;
-
     private bool inCheckPointArea=false;
+    private bool checkPointDone = false;
 
     void Start () {
 
+        
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
         player = gameObject.GetComponent<Transform>(); 
     }
@@ -29,8 +30,15 @@ public class CheckPointController : MonoBehaviour {
             //Save transform position of player
             gameController.setcheckPoint(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
             inCheckPointArea = false;
-            gameController.setcheckPointController(true);
-            print(gameController.getcheckPoint());
+            if (!checkPointDone)
+            {
+                gameController.setcheckPointController(true);
+                print(gameController.getcheckPoint());
+                print("hola");
+                checkPointDone = true;
+            }
+            
+            
 
         }
         else if (gameController.gethideText() && Input.GetKeyDown(KeyCode.E) && !inCheckPointArea)
@@ -40,7 +48,7 @@ public class CheckPointController : MonoBehaviour {
             gameController.sethideText(false);
             inCheckPointArea = true;
 
-            print("gola holita");
+         
         }
 
     }
@@ -50,7 +58,7 @@ public class CheckPointController : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
-            //SET BUTTON ANIMATION HERE
+            //Button appears and detected that player is on checkpoint area
             Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
             gameController.setInteraction(true);
             inCheckPointArea=true;
@@ -60,7 +68,7 @@ public class CheckPointController : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        print(collision);
+
         Destroy(GameObject.FindGameObjectWithTag("button"));
         inCheckPointArea = false;
         gameController.setInteraction(false);
