@@ -11,6 +11,8 @@ public class InteractionText : MonoBehaviour {
     public GameObject squareText; //Text panel
     public string historyText;
 
+    private bool seeText = false;
+
 
     private void Start()
     {
@@ -18,19 +20,27 @@ public class InteractionText : MonoBehaviour {
     }
     private void Update()
     {
-        if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E) && !gameController.gethideText())
+        if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E) && !gameController.gethideText() && seeText)
         {
+            print("gola");
             //set visible square text
             squareText.SetActive(true);
             gameController.sethideText(true);
-        
-        
+          
+            StartCoroutine(hideTextControll());
+
+
+
         }
-        else if (gameController.gethideText() && Input.GetKeyDown(KeyCode.E))
+        else if (gameController.gethideText() && Input.GetKeyDown(KeyCode.E) && !seeText)
         {
             //set invisible squaretext
+            print("afio");
             squareText.SetActive(false);
             gameController.sethideText(false);
+            seeText = true; 
+         
+
         }
        
     }
@@ -43,16 +53,25 @@ public class InteractionText : MonoBehaviour {
             //SET BUTTON ANIMATION HERE
             Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
             gameController.setInteraction(true);
-          
+            seeText = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        print(collision);
-        Destroy(GameObject.FindGameObjectWithTag("button"));
-        
-        gameController.setInteraction(false);
         //Destroy button
+        Destroy(GameObject.FindGameObjectWithTag("button"));
+        gameController.setInteraction(false);
+        seeText = false;
+     
+       
+   
     }
+    IEnumerator hideTextControll()
+    {
+        yield return new WaitForSeconds(0.5f);
+        gameController.sethideText(true);
+        seeText = false;
+    }
+    
 }

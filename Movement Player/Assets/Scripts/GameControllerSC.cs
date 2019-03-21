@@ -17,6 +17,11 @@ public class GameControllerSC : MonoBehaviour
     //Freeze camera
     private bool freezCam = false;
 
+    //CheckPoint position and controller
+    private Vector3 checkPoint;
+    private bool checkPointController = false;
+    
+
 
     public static GameControllerSC instance = null;//Variable to save the instance
 
@@ -84,9 +89,24 @@ public class GameControllerSC : MonoBehaviour
         return hideText;
     }
 
+    //Checkpoint position
+    public void setcheckPoint(Vector3 checkPointWorld)
+    {
+        checkPoint = checkPointWorld;
+    }
+    public Vector3 getcheckPoint()
+    {
+        return checkPoint; 
+    }
 
-
-
-
+    //Checkpoint controller
+    public void setcheckPointController(bool checkPointActivated)
+    {
+        checkPointController = checkPointActivated;
+    }
+    public bool getcheckPointController()
+    {
+        return checkPointController; 
+    }
 
 }
