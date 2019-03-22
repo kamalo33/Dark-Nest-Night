@@ -8,47 +8,48 @@ public class CheckPointController : MonoBehaviour {
     private GameControllerSC gameController;
     public GameObject instantiateButton; 
     public GameObject squareText; //Text panel
-    public string historyText; //Text inside square
-    private Transform player;
-    private bool inCheckPointArea=false;
-    private bool checkPointDone = false;
+    public Animator animator;
+
+    private bool checkPoint = false;
 
     void Start () {
 
-        
+        //get components
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
-        player = gameObject.GetComponent<Transform>(); 
+
     }
 
     private void Update()
     {
-        if (gameController.getInteraction() && !gameController.gethideText() && Input.GetKeyDown(KeyCode.E) && inCheckPointArea)
+        //if inside of trigger
+        if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E))
         {
-            //set visible square text
+            //set visible square text and interaction with element is true
             squareText.SetActive(true);
-            gameController.sethideText(true);
-            //Save transform position of player
-            gameController.setcheckPoint(new Vector3(player.transform.position.x, player.transform.position.y, player.transform.position.z));
-            inCheckPointArea = false;
-            if (!checkPointDone)
+
+            //only enter one time per checkpoint
+            if (!checkPoint)
             {
+                //save position
+                gameController.setcheckPoint(new Vector3(transform.position.x, transform.position.y, -10));
+                //only one checkpoint
                 gameController.setcheckPointController(true);
+                checkPoint = true;
+                print("solo una vez");
                 print(gameController.getcheckPoint());
-                print("hola");
-                checkPointDone = true;
+
             }
-            
-            
+
+            gameController.setInteraction(false);
 
         }
-        else if (gameController.gethideText() && Input.GetKeyDown(KeyCode.E) && !inCheckPointArea)
+        //interaction is false
+        else if (!gameController.getInteraction() && Input.GetKeyDown(KeyCode.E))
         {
-            //set invisible squaretext
+            //set visible square text and finish of interaction
             squareText.SetActive(false);
-            gameController.sethideText(false);
-            inCheckPointArea = true;
+            gameController.setInteraction(true);
 
-         
         }
 
     }
@@ -61,18 +62,18 @@ public class CheckPointController : MonoBehaviour {
             //Button appears and detected that player is on checkpoint area
             Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
             gameController.setInteraction(true);
-            inCheckPointArea=true;
 
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-
+        //Destroy button and out of interaction
         Destroy(GameObject.FindGameObjectWithTag("button"));
-        inCheckPointArea = false;
         gameController.setInteraction(false);
-        inCheckPointArea = false;
-        //Destroy button
+
+
+
+
     }
 }

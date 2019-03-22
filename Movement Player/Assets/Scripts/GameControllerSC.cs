@@ -20,6 +20,10 @@ public class GameControllerSC : MonoBehaviour
     //CheckPoint position and controller
     private Vector3 checkPoint;
     private bool checkPointController = false;
+
+    //State abilities
+    private bool hideState = false;
+    private bool rockState = false;
     
 
 
@@ -69,7 +73,7 @@ public class GameControllerSC : MonoBehaviour
     }
 
    
-    //Freeze camera and Hide State
+    //Freeze camera
     public void setfreezeCamera (bool freezCamIs)
     {
         freezCam = freezCamIs;
@@ -107,6 +111,26 @@ public class GameControllerSC : MonoBehaviour
     public bool getcheckPointController()
     {
         return checkPointController; 
+    }
+
+    //Hide State
+    public void sethideState(bool hideStateActivated)
+    {
+        hideState = hideStateActivated;
+    }
+    public bool gethideState()
+    {
+        return hideState;
+    }
+
+    //Rock State
+    public void setrockState(bool rockStateActivated)
+    {
+        rockState = rockStateActivated;
+    }
+    public bool getrockState()
+    {
+        return rockState;
     }
 
 }

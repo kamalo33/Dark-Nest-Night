@@ -59,14 +59,6 @@ public class PlayerMoveController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
 
-    //DeathPanel
-    public GameObject deathPanel;
-    private Color deathPanelAppears;
-    private float timeToDefreeze;
-    //private bool freezeGame = false;
-    [Range(0, 5f)] public float deathTransition , timeToAppear;
-    private bool revive = false;
-
     
     private void Start() //get components
     {
@@ -77,10 +69,9 @@ public class PlayerMoveController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         //spr = gameObject.GetComponent<SpriteRenderer>();
         anim = gameObject.GetComponent<Animator>();
-        deathPanelAppears = gameObject.GetComponent<Renderer>().material.color;
         //circle = GameObject.FindGameObjectsWithTag("box").GetComponent<Rigidbody2D>();
-        deathPanel.SetActive(false);
-        deathPanelAppears.a = 0;
+
+      
     }
 
     private void Update()
@@ -109,7 +100,7 @@ public class PlayerMoveController : MonoBehaviour
 
         }
 
-        //Hide activation
+        //RockForm activation
         try
         {
             if (Input.GetKey(KeyCode.Space) && stopped && !ice)
@@ -117,11 +108,15 @@ public class PlayerMoveController : MonoBehaviour
                 //Change state 
 
                 gameController.setfreezeCamera(true);
+                gameController.setrockState(true);
+            
             }
             else
             {
+                gameController.setrockState(false);
                 gameController.setfreezeCamera(false);
             }
+            print(gameController.getrockState());
         }
         catch (Exception e)
         {
@@ -178,60 +173,6 @@ public class PlayerMoveController : MonoBehaviour
         {
             if (insideFire || insideBrambles)
                 invokeIsCalled = true;
-        }
-
-
-        try //death condition
-        {
-            if (gameController.getLife() <= 0 || revive)
-            {
-                //if life is 0, die and freeze all and deathPanel appears in x time
-                deathPanel.SetActive(true);
-                timeToDefreeze += Time.unscaledDeltaTime;
-                //print(timeToDefreeze);
-                if (timeToDefreeze > timeToAppear && deathPanelAppears.a >= 0)
-                {
-                    print("GOLI");
-                    
-                    Time.timeScale = 1;
-                    deathPanelAppears.a -= Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
-                    deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
-
-                    if (gameController.getcheckPointController()) {
-                        
-                        print("gola");
-                        transform.position = gameController.getcheckPoint();
-                        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); //-10 in Z to see player and game
-                        gameController.setLife(-100); //change sign in the same function to put it in positive value
-                        gameController.setcheckPointController(false);
-                        revive = true;
-                        
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else if (timeToDefreeze <= timeToAppear && deathPanelAppears.a <= 1)
-                {
-                    
-                    deathPanelAppears.a += Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
-                    deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
-                   
-                    Time.timeScale = 0;
-                   
-                }
-                
-            }
-           
-        }
-        catch (Exception e)
-        {
-            print(e);
-        }
-        finally
-        {
-           
         }
 
         try //haunted condition
@@ -386,8 +327,7 @@ public class PlayerMoveController : MonoBehaviour
             invokeIsCalled = false; //Stop invoke in Update function
             CancelInvoke("fireDamageTiming"); //Cancel damage function of fire
             CancelInvoke("bramblesDamageTiming");
-            print(insideFire);
-            print(insideBrambles);
+          
 
         }
         catch (Exception e) //Print error
