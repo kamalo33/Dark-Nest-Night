@@ -53,6 +53,10 @@ public class PlayerMoveController : MonoBehaviour
 
     private float boneSplintersDamage = 100;
 
+    //CloseEyes ability
+    public Animator animator;
+    private bool closedEyes = false;
+
     //Start function
     private GameControllerSC gameController;
     private Vector3 position;
@@ -123,8 +127,37 @@ public class PlayerMoveController : MonoBehaviour
 
             print(e);
         }
+        finally
+        {
 
- 
+        }
+
+        //Close eyes form activation
+        try
+        {
+            if(Input.GetKey(KeyCode.L) && stopped && !ice)
+            {
+                gameController.setfreezeCamera(true);
+                gameController.sethideState(true);
+
+            }
+            else
+            {
+                gameController.setfreezeCamera(false);
+                gameController.sethideState(false);
+            }
+            print(gameController.gethideState());
+        }
+        catch (Exception e)
+        {
+            print (e);
+        }
+        finally
+        {
+
+        }
+
+        //Jump activation
         jump = (Input.GetAxis("Jump") > 0); //devuelve true cuando se está saltando, sino, no se devuelve nada
         if (!jump)
         {
@@ -204,7 +237,8 @@ public class PlayerMoveController : MonoBehaviour
 
         anim.SetFloat("speed", Mathf.Abs(x)); //Run animation
         anim.SetBool("grounded", grounded); //Jump animation
-        anim.SetBool("hidestate", gameController.getfreezCam()); //Hide animation
+        anim.SetBool("hidestate", gameController.getrockState()); //Hide animation
+        animator.SetBool("eyes", gameController.gethideState());//Closed eyes animation
     }
 
     private void FixedUpdate()
