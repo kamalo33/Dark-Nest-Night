@@ -72,8 +72,5 @@ public class CheckPointController : MonoBehaviour {
         Destroy(GameObject.FindGameObjectWithTag("button"));
         gameController.setInteraction(false);
 
-
-
-
     }
 }

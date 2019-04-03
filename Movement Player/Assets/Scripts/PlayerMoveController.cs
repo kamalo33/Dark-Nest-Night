@@ -55,7 +55,7 @@ public class PlayerMoveController : MonoBehaviour
 
     //CloseEyes ability
     public Animator animator;
-    private bool closedEyes = false;
+   
 
     //Start function
     private GameControllerSC gameController;
@@ -117,10 +117,11 @@ public class PlayerMoveController : MonoBehaviour
             }
             else
             {
-                gameController.setrockState(false);
                 gameController.setfreezeCamera(false);
+                gameController.setrockState(false);
+                
             }
-            print(gameController.getrockState());
+            
         }
         catch (Exception e)
         {
@@ -131,7 +132,7 @@ public class PlayerMoveController : MonoBehaviour
         {
 
         }
-
+      
         //Close eyes form activation
         try
         {
@@ -139,14 +140,15 @@ public class PlayerMoveController : MonoBehaviour
             {
                 gameController.setfreezeCamera(true);
                 gameController.sethideState(true);
+                print("Hola");
 
             }
             else
             {
-                gameController.setfreezeCamera(false);
+                //gameController.setfreezeCamera(false);
                 gameController.sethideState(false);
             }
-            print(gameController.gethideState());
+            
         }
         catch (Exception e)
         {
