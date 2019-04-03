@@ -53,19 +53,15 @@ public class PlayerMoveController : MonoBehaviour
 
     private float boneSplintersDamage = 100;
 
+    //CloseEyes ability
+    public Animator animator;
+    private bool closedEyes = false;
+
     //Start function
     private GameControllerSC gameController;
     private Vector3 position;
     private Rigidbody2D rb;
     private Animator anim;
-
-    //DeathPanel
-    public GameObject deathPanel;
-    private Color deathPanelAppears;
-    private float timeToDefreeze;
-    //private bool freezeGame = false;
-    [Range(0, 5f)] public float deathTransition , timeToAppear;
-    private bool revive = false;
 
     
     private void Start() //get components
@@ -77,10 +73,9 @@ public class PlayerMoveController : MonoBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         //spr = gameObject.GetComponent<SpriteRenderer>();
         anim = gameObject.GetComponent<Animator>();
-        deathPanelAppears = gameObject.GetComponent<Renderer>().material.color;
         //circle = GameObject.FindGameObjectsWithTag("box").GetComponent<Rigidbody2D>();
-        deathPanel.SetActive(false);
-        deathPanelAppears.a = 0;
+
+      
     }
 
     private void Update()
@@ -109,7 +104,7 @@ public class PlayerMoveController : MonoBehaviour
 
         }
 
-        //Hide activation
+        //RockForm activation
         try
         {
             if (Input.GetKey(KeyCode.Space) && stopped && !ice)
@@ -117,19 +112,52 @@ public class PlayerMoveController : MonoBehaviour
                 //Change state 
 
                 gameController.setfreezeCamera(true);
+                gameController.setrockState(true);
+            
             }
             else
             {
+                gameController.setrockState(false);
                 gameController.setfreezeCamera(false);
             }
+            print(gameController.getrockState());
         }
         catch (Exception e)
         {
 
             print(e);
         }
+        finally
+        {
 
- 
+        }
+
+        //Close eyes form activation
+        try
+        {
+            if(Input.GetKey(KeyCode.L) && stopped && !ice)
+            {
+                gameController.setfreezeCamera(true);
+                gameController.sethideState(true);
+
+            }
+            else
+            {
+                gameController.setfreezeCamera(false);
+                gameController.sethideState(false);
+            }
+            print(gameController.gethideState());
+        }
+        catch (Exception e)
+        {
+            print (e);
+        }
+        finally
+        {
+
+        }
+
+        //Jump activation
         jump = (Input.GetAxis("Jump") > 0); //devuelve true cuando se está saltando, sino, no se devuelve nada
         if (!jump)
         {
@@ -180,60 +208,6 @@ public class PlayerMoveController : MonoBehaviour
                 invokeIsCalled = true;
         }
 
-
-        try //death condition
-        {
-            if (gameController.getLife() <= 0 || revive)
-            {
-                //if life is 0, die and freeze all and deathPanel appears in x time
-                deathPanel.SetActive(true);
-                timeToDefreeze += Time.unscaledDeltaTime;
-                //print(timeToDefreeze);
-                if (timeToDefreeze > timeToAppear && deathPanelAppears.a >= 0)
-                {
-                    print("GOLI");
-                    
-                    Time.timeScale = 1;
-                    deathPanelAppears.a -= Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
-                    deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
-
-                    if (gameController.getcheckPointController()) {
-                        
-                        print("gola");
-                        transform.position = gameController.getcheckPoint();
-                        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10); //-10 in Z to see player and game
-                        gameController.setLife(-100); //change sign in the same function to put it in positive value
-                        gameController.setcheckPointController(false);
-                        revive = true;
-                        
-                    }
-                    else
-                    {
-
-                    }
-                }
-                else if (timeToDefreeze <= timeToAppear && deathPanelAppears.a <= 1)
-                {
-                    
-                    deathPanelAppears.a += Time.unscaledDeltaTime * deathTransition; //+ deathtransition = more speed in appears
-                    deathPanel.GetComponent<Renderer>().material.color = deathPanelAppears;
-                   
-                    Time.timeScale = 0;
-                   
-                }
-                
-            }
-           
-        }
-        catch (Exception e)
-        {
-            print(e);
-        }
-        finally
-        {
-           
-        }
-
         try //haunted condition
         {
             if (gameController.getbeingHunted() && !huntedState)
@@ -263,7 +237,8 @@ public class PlayerMoveController : MonoBehaviour
 
         anim.SetFloat("speed", Mathf.Abs(x)); //Run animation
         anim.SetBool("grounded", grounded); //Jump animation
-        anim.SetBool("hidestate", gameController.getfreezCam()); //Hide animation
+        anim.SetBool("hidestate", gameController.getrockState()); //Hide animation
+        animator.SetBool("eyes", gameController.gethideState());//Closed eyes animation
     }
 
     private void FixedUpdate()
@@ -386,8 +361,7 @@ public class PlayerMoveController : MonoBehaviour
             invokeIsCalled = false; //Stop invoke in Update function
             CancelInvoke("fireDamageTiming"); //Cancel damage function of fire
             CancelInvoke("bramblesDamageTiming");
-            print(insideFire);
-            print(insideBrambles);
+          
 
         }
         catch (Exception e) //Print error
