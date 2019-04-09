@@ -55,7 +55,8 @@ public class PlayerMoveController : MonoBehaviour
 
     //CloseEyes ability
     public Animator animator;
-    private bool closedEyes = false;
+    private bool eyesClosed=false;
+   
 
     //Start function
     private GameControllerSC gameController;
@@ -110,17 +111,19 @@ public class PlayerMoveController : MonoBehaviour
             if (Input.GetKey(KeyCode.Space) && stopped && !ice)
             {
                 //Change state 
-
                 gameController.setfreezeCamera(true);
                 gameController.setrockState(true);
+                eyesClosed = true;
             
             }
             else
             {
-                gameController.setrockState(false);
                 gameController.setfreezeCamera(false);
+                gameController.setrockState(false);
+                eyesClosed = false;
+
             }
-            print(gameController.getrockState());
+            
         }
         catch (Exception e)
         {
@@ -131,7 +134,7 @@ public class PlayerMoveController : MonoBehaviour
         {
 
         }
-
+      
         //Close eyes form activation
         try
         {
@@ -139,14 +142,16 @@ public class PlayerMoveController : MonoBehaviour
             {
                 gameController.setfreezeCamera(true);
                 gameController.sethideState(true);
+                eyesClosed = true;
 
             }
             else
             {
-                gameController.setfreezeCamera(false);
+                //gameController.setfreezeCamera(false);
                 gameController.sethideState(false);
+                
             }
-            print(gameController.gethideState());
+            
         }
         catch (Exception e)
         {
@@ -238,7 +243,7 @@ public class PlayerMoveController : MonoBehaviour
         anim.SetFloat("speed", Mathf.Abs(x)); //Run animation
         anim.SetBool("grounded", grounded); //Jump animation
         anim.SetBool("hidestate", gameController.getrockState()); //Hide animation
-        animator.SetBool("eyes", gameController.gethideState());//Closed eyes animation
+        animator.SetBool("eyes", eyesClosed);//Closed eyes animation
     }
 
     private void FixedUpdate()
@@ -329,6 +334,14 @@ public class PlayerMoveController : MonoBehaviour
                 gameController.setLife(boneSplintersDamage);
                 print(gameController.getLife());
                 break;
+
+           
+        }
+        if (collision.gameObject.tag == "Enemy" && collision.gameObject.GetComponent<EnemyController>().playerDetected == true)
+        {
+            print("mueres");
+            gameController.setLife(100);
+
         }
 
     }
@@ -390,7 +403,7 @@ public class PlayerMoveController : MonoBehaviour
         gameController.setLife(bramblesDamage);
         print(gameController.getLife());
     }
-    
+
 }
 
 

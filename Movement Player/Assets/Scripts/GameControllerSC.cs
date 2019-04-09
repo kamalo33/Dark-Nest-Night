@@ -24,9 +24,10 @@ public class GameControllerSC : MonoBehaviour
     //State abilities
     private bool hideState = false;
     private bool rockState = false;
+
+    //Daily save
+    private int [] daily;
     
-
-
     public static GameControllerSC instance = null;//Variable to save the instance
 
     void Awake()
@@ -131,6 +132,16 @@ public class GameControllerSC : MonoBehaviour
     public bool getrockState()
     {
         return rockState;
+    }
+
+    //Return bool if true or false and save it 
+    public void setDaily(int [] dailyNumber)
+    {
+        daily = dailyNumber; 
+    }
+    public int [] getDaily()
+    {
+        return daily;
     }
 
 }
