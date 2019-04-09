@@ -28,8 +28,6 @@ public class GameControllerSC : MonoBehaviour
     //Daily save
     private int [] daily;
     
-
-
     public static GameControllerSC instance = null;//Variable to save the instance
 
     void Awake()

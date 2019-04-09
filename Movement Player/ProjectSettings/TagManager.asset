@@ -16,6 +16,7 @@ TagManager:
   - box
   - button
   - canvas
+  - Enemy
   layers:
   - Default
   - TransparentFX
