@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //APPEARS TEXT AND BUTTON OVER PLAYER AND GETS PLAYER INPUT E
 public class InteractionText : MonoBehaviour {
@@ -9,51 +10,52 @@ public class InteractionText : MonoBehaviour {
     private GameControllerSC gameController;
     public GameObject instantiateButton;
     public GameObject squareText; //Text panel
-    public string historyText;
 
+    //Conditions to see interactive text
     private bool seeText = false;
+    private bool interactiveZone = false;
 
+    //text to show and call this text
+    private string[] interactiveTexts = { "Inserta aquí lo que quieras 1", "Inserta aquí lo que quieras 2", "Inserta aquí lo que quieras 3"};
+    public int num;
+
+    //Edit texts
+    public GameObject interactiveText;
+   
 
     private void Start()
     {
+        //gameController call
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
     }
     private void Update()
     {
-        if (gameController.getInteraction() && Input.GetKeyDown(KeyCode.E) && !gameController.gethideText() && seeText)
+        if (Input.GetKeyDown(KeyCode.E) && interactiveZone)
         {
-            print("gola");
             //set visible square text
             squareText.SetActive(true);
-            gameController.sethideText(true);
-          
-            StartCoroutine(hideTextControll());
-
-
-
+            seeText = true;
+            interactiveZone = false;
+            interactiveText.GetComponent<Text>().text = interactiveTexts[num];
+       
         }
-        else if (gameController.gethideText() && Input.GetKeyDown(KeyCode.E) && !seeText)
+        else if (Input.GetKeyDown(KeyCode.E) && seeText)
         {
             //set invisible squaretext
-            print("afio");
             squareText.SetActive(false);
-            gameController.sethideText(false);
-            seeText = true; 
-         
-
+            interactiveZone = true;
+            seeText = false; 
         }
        
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.gameObject.tag == "Player")
         {  
             //SET BUTTON ANIMATION HERE
             Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
-            gameController.setInteraction(true);
-            seeText = true;
+            interactiveZone = true;
         }
     }
 
@@ -61,17 +63,12 @@ public class InteractionText : MonoBehaviour {
     {
         //Destroy button
         Destroy(GameObject.FindGameObjectWithTag("button"));
-        gameController.setInteraction(false);
+        interactiveZone = false;
         seeText = false;
+        squareText.SetActive(false);
      
        
    
     }
-    IEnumerator hideTextControll()
-    {
-        yield return new WaitForSeconds(0.5f);
-        gameController.sethideText(true);
-        seeText = false;
-    }
-    
+   
 }

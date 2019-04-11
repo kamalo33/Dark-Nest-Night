@@ -18,15 +18,11 @@ public class DailyController : MonoBehaviour {
 
     //Text to insert
     public string dailyPage;
-    
 
-    void Start () {
+    //Text array and number to call it
+    private string[] texts = {"Texto 1 aquí", "Texto 2 aquí", "Texto 3 aquí", "Texto 4 aquí"};
+    public int textNumber;
 
-        storyText.GetComponent<Text>().text = "Pones aquí lo que te salga del nabo";
-        dailyPageText.GetComponent<Text>().text = dailyPage;
-       
-    }
-	
 	
 	void Update () {
 
@@ -36,7 +32,9 @@ public class DailyController : MonoBehaviour {
             dailyMesh.SetActive(true);
             dailyIsOpen = true;
             interactionZone = false;
-          
+            storyText.GetComponent<Text>().text = texts[textNumber];
+            dailyPageText.GetComponent<Text>().text = dailyPage;
+
         }
         //When press again, hide it
         else if (Input.GetKeyDown(KeyCode.E) && dailyIsOpen)
