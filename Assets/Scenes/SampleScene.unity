@@ -184,7 +184,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 15.33
+      value: 15.27
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -223,7 +223,8 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &99994978
@@ -927,7 +928,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 7.628
+      value: 7.599
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -966,7 +967,8 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &388521573
@@ -1057,7 +1059,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 11.495
+      value: 11.43
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1096,7 +1098,8 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!4 &448147882 stripped
@@ -1400,7 +1403,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 3.8265266
+      value: 3.798
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1439,7 +1442,8 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &789039417
@@ -2473,7 +2477,8 @@ Prefab:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1042198130
@@ -3053,7 +3058,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.814
+      value: 26.734
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3087,7 +3092,8 @@ Prefab:
       propertyPath: m_Name
       value: TerrainPref(7)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1532279907
@@ -3584,7 +3590,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 22.984
+      value: 22.908
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3618,7 +3624,8 @@ Prefab:
       propertyPath: m_Name
       value: TerrainPref (6)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1833718709
@@ -3630,7 +3637,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 19.152502
+      value: 19.09
       objectReference: {fileID: 0}
     - target: {fileID: 4912974491793524, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3664,7 +3671,8 @@ Prefab:
       propertyPath: m_Name
       value: TerrainPref (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: d6e5c52c66272f44cbffe7607c22e67f, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1839710714
@@ -3957,6 +3965,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1970875005}
+  - component: {fileID: 1970875006}
   m_Layer: 8
   m_Name: Terrain
   m_TagString: Untagged
@@ -3985,6 +3994,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1970875006
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1970875004}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 13.360545, y: -0.916379}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 30.554262, y: 0.30012512}
+  m_EdgeRadius: 0
 --- !u!1 &2025633679
 GameObject:
   m_ObjectHideFlags: 0
