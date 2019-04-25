@@ -11,6 +11,8 @@ public class StartPoisitionController : MonoBehaviour {
     private bool fade = false;
     public float timeToFade = 4f;
 
+    private float correctionCameraHeight= 0.656f;
+
 	void Start ()
     {
         //Get components of gameobjects
@@ -51,7 +53,7 @@ public class StartPoisitionController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(timeToFade);
         //new position of player and camera is the gameobject startPosition
         player.transform.position = new Vector3(transform.position.x, transform.position.y, 0);
-        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y, -10);
+        Camera.main.transform.position = new Vector3(transform.position.x, transform.position.y + correctionCameraHeight, -10);
    
         
         //Return fps
@@ -72,7 +74,7 @@ public class StartPoisitionController : MonoBehaviour {
         yield return new WaitForSecondsRealtime(timeToFade);
         //new position of player and camera is the gameobject checkpoint position
         player.transform.position = new Vector3(gameController.getcheckPoint().x, gameController.getcheckPoint().y, 0);
-        Camera.main.transform.position = new Vector3(gameController.getcheckPoint().x, gameController.getcheckPoint().y, -10);
+        Camera.main.transform.position = new Vector3(gameController.getcheckPoint().x, gameController.getcheckPoint().y + correctionCameraHeight, -10);
         //Return fps
         Time.timeScale = 1;
         //Fade OFF
