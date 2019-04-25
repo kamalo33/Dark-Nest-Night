@@ -147,7 +147,7 @@ public class PlayerMoveController : MonoBehaviour
             }
             else
             {
-                //gameController.setfreezeCamera(false);
+                
                 gameController.sethideState(false);
                 
             }
@@ -244,6 +244,7 @@ public class PlayerMoveController : MonoBehaviour
         anim.SetBool("grounded", grounded); //Jump animation
         anim.SetBool("hidestate", gameController.getrockState()); //Hide animation
         animator.SetBool("eyes", eyesClosed);//Closed eyes animation
+        anim.SetBool("eyestate", gameController.gethideState());
     }
 
     private void FixedUpdate()
