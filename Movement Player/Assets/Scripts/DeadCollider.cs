@@ -9,6 +9,10 @@ public class DeadCollider : MonoBehaviour {
 
     private GameControllerSC gameController;
 
+
+    private bool objetoMueres = false;
+
+
     private void Start()
     {
         gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
@@ -17,7 +21,7 @@ public class DeadCollider : MonoBehaviour {
     void Update () {
 
         //If E is pressed, see daily, 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) & objetoMueres == true)
         {
             gameController.setLife(100f);
         }
@@ -32,6 +36,7 @@ public class DeadCollider : MonoBehaviour {
         {
             //Button appears and detected that player is on checkpoint area
             Instantiate(instantiateButton, new Vector3(0, 0, 0), Quaternion.identity);
+            objetoMueres = true;
           
         }
     }
@@ -39,6 +44,7 @@ public class DeadCollider : MonoBehaviour {
     {
         //Destroy button and out of interaction
         Destroy(GameObject.FindGameObjectWithTag("button"));
+        objetoMueres = false;
         
     }
 }

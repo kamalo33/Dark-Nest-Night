@@ -11,7 +11,7 @@ public class StartPoisitionController : MonoBehaviour {
     private bool fade = false;
     public float timeToFade = 4f;
 
-    private float correctionCameraHeight= 0.656f;
+    public float correctionCameraHeight= 0.656f;
 
 	void Start ()
     {

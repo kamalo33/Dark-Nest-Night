@@ -138,7 +138,7 @@ public class PlayerMoveController : MonoBehaviour
         //Close eyes form activation
         try
         {
-            if(Input.GetKey(KeyCode.L) && stopped && !ice)
+            if(Input.GetKey(KeyCode.Q) && stopped && !ice)
             {
                 gameController.setfreezeCamera(true);
                 gameController.sethideState(true);

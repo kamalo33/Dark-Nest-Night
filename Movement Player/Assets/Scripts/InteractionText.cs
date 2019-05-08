@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class InteractionText : MonoBehaviour {
 
     //private bool interaction;
-    private GameControllerSC gameController;
     public GameObject instantiateButton;
     public GameObject squareText; //Text panel
 
@@ -16,18 +15,14 @@ public class InteractionText : MonoBehaviour {
     private bool interactiveZone = false;
 
     //text to show and call this text
-    private string[] interactiveTexts = { "Inserta aquí lo que quieras 1", "Inserta aquí lo que quieras 2", "Inserta aquí lo que quieras 3"};
+    private string[] interactiveTexts = { "Un arbol calcinado", "Familia Addlestone... Sus rostros me son familiares...", "Cuanto más avanzo, más se enfría el aire...\n Pero más me tiemblan las piernas. Tengo que tener cuidado.", "Las muescas en la corteza parecende dos criaturas distintas.\n Debería avanzar con cuidado."};
     public int num;
 
     //Edit texts
     public GameObject interactiveText;
    
 
-    private void Start()
-    {
-        //gameController call
-        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerSC>();
-    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E) && interactiveZone)

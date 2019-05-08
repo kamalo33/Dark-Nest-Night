@@ -20,7 +20,7 @@ public class DailyController : MonoBehaviour {
     public string dailyPage;
 
     //Text array and number to call it
-    private string[] texts = {"Texto 1 aquí", "Texto 2 aquí", "Texto 3 aquí", "Texto 4 aquí"};
+    private string[] texts = {"Solo se escuchan gritos... Todo está perdido... \n Hemos perdido la ciudad... Todo es culpa mia...\n Lo he arruinado todo... " , "Texto 2 aquí", "Texto 3 aquí", "Texto 4 aquí"};
     public int textNumber;
 
 	

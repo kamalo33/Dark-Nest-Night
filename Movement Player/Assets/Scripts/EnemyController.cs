@@ -62,13 +62,13 @@ public class EnemyController : MonoBehaviour {
             if (distance > 0)
             {
                 dir = 1;
-                print("derecha");
+             
                 //transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             if (distance < 0)
             {
                 dir = -1;
-                print("izquerda");
+
                 //transform.rotation = Quaternion.Euler(0, 0, 0);
             }
             transform.position = new Vector3(transform.position.x + enemySpeed * dir, transform.position.y, 0);//moves in the direction in speed parameter
@@ -85,12 +85,12 @@ public class EnemyController : MonoBehaviour {
                     if (distance > 0)
                     {
                         dir = 1;
-                        print("1");
+                        
                     }
                     if (distance < 0)
                     {
                         dir = -1;
-                        print("2");
+                      
                     }
                     transform.position = new Vector3(transform.position.x + enemySpeed * dir, transform.position.y, 0);//moves in the direction in speed parameter
                 }
