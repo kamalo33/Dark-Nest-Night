@@ -18,8 +18,7 @@ public class CameraMovementSCR : MonoBehaviour
         //Gets camera dimensions
         camHeight = 2f * cam_Camera.orthographicSize;
         camWidth = camHeight * cam_Camera.aspect;
-        print(camHeight);
-        print(camWidth);
+       
     }
 
     void Update()
